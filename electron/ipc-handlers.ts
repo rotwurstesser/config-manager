@@ -1458,6 +1458,49 @@ export function registerIpcHandlers(): void {
       return { success: false, error: String(err) };
     }
   });
+
+  // Generic open path handler (for any folder/file)
+  ipcMain.handle('openPath', (_event, targetPath: string) => {
+    try {
+      require('electron').shell.openPath(targetPath);
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: String(err) };
+    }
+  });
+
+  // Open containing folder and select file
+  ipcMain.handle('showItemInFolder', (_event, targetPath: string) => {
+    try {
+      require('electron').shell.showItemInFolder(targetPath);
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: String(err) };
+    }
+  });
+
+  // Open the ~/.claude/ config folder
+  ipcMain.handle('openConfigFolder', () => {
+    try {
+      const configPath = path.join(os.homedir(), '.claude');
+      require('electron').shell.openPath(configPath);
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: String(err) };
+    }
+  });
+
+  // Open agent file in finder (show in containing folder)
+  ipcMain.handle('openAgentFile', (_event, filename: string, isEnabled: boolean) => {
+    try {
+      const folder = isEnabled ? 'agents' : '.config-manager/agents-disabled';
+      const filePath = path.join(os.homedir(), '.claude', folder, filename);
+      require('electron').shell.showItemInFolder(filePath);
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: String(err) };
+    }
+  });
 }
 
 // File watcher for dynamic updates

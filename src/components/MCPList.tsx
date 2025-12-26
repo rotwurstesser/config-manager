@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Server, RefreshCw, Power, PowerOff, AlertCircle, FileCode, Search, Trash2 } from "lucide-react";
+import { Server, RefreshCw, Power, PowerOff, AlertCircle, FileCode, Search, Trash2, FolderOpen } from "lucide-react";
 import { Switch } from "./ui/switch";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -52,6 +52,7 @@ interface MCPListProps {
   onRefresh: () => void;
   onReadConfig?: () => Promise<{ success: boolean; claudeJson?: string; mcpJson?: string; error?: string }>;
   onWriteConfig?: (type: 'claude' | 'mcp', content: string) => Promise<{ success: boolean; error?: string }>;
+  onOpenConfigFolder?: () => void;
 }
 
 export function MCPList({
@@ -63,6 +64,7 @@ export function MCPList({
   onRefresh,
   onReadConfig,
   onWriteConfig,
+  onOpenConfigFolder,
 }: MCPListProps) {
   const [toggling, setToggling] = useState<string | null>(null);
   const [togglingAll, setTogglingAll] = useState<boolean>(false);
@@ -218,6 +220,17 @@ export function MCPList({
           )}
         </div>
         <div className="flex items-center gap-2">
+          {onOpenConfigFolder && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onOpenConfigFolder}
+              title="Open ~/.claude/ folder"
+            >
+              <FolderOpen className="w-4 h-4 mr-2" />
+              Open Folder
+            </Button>
+          )}
           {onReadConfig && (
             <>
               <Button

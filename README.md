@@ -61,6 +61,22 @@ An Electron desktop app to **safely manage Claude Code configurations** without 
 
 ---
 
+## Screenshots
+
+<div align="center">
+
+### Agent Management
+![Agent List](assets/screenshot-agents.png)
+*Toggle agents on/off, change models, search and filter*
+
+### Built-in Editor
+![Editor Modal](assets/screenshot-editor.png)
+*Monaco-powered editor with syntax highlighting*
+
+</div>
+
+---
+
 ## Requirements
 
 > [!IMPORTANT]
@@ -326,6 +342,26 @@ npm run package      # Create distributable (DMG/EXE)
 2. Expose in `electron/preload.ts`
 3. Add types in `src/types/electron.d.ts`
 4. Use in React components via `window.electronAPI`
+
+---
+
+## Ask Claude to Help You Set This Up
+
+> [!TIP]
+> **Claude Code can help you install and configure this app!**
+>
+> Just tell Claude:
+> ```
+> Help me set up Claude Config Manager from https://github.com/rotwurstesser/config-manager
+> ```
+>
+> Claude will:
+> 1. Clone the repository
+> 2. Install dependencies
+> 3. Build and run the app
+> 4. Help you understand your current configuration
+
+This works because Claude Code can read the project's documentation and understands how to work with Electron apps.
 
 ---
 

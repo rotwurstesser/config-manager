@@ -57,6 +57,16 @@ contextBridge.exposeInMainWorld('electronAPI', {
   openSkillFolder: (folderPath: string) =>
     ipcRenderer.invoke('skill:openFolder', folderPath),
 
+  // Generic file system operations
+  openPath: (targetPath: string) =>
+    ipcRenderer.invoke('openPath', targetPath),
+  showItemInFolder: (targetPath: string) =>
+    ipcRenderer.invoke('showItemInFolder', targetPath),
+  openConfigFolder: () =>
+    ipcRenderer.invoke('openConfigFolder'),
+  openAgentFile: (filename: string, isEnabled: boolean) =>
+    ipcRenderer.invoke('openAgentFile', filename, isEnabled),
+
   // Event listeners
   onConfigUpdated: (callback: (data: unknown) => void) => {
     const subscription = (_event: Electron.IpcRendererEvent, data: unknown) => callback(data);
@@ -107,6 +117,10 @@ export interface ElectronAPI {
   writeSkillContent: (folderPath: string, content: string) => Promise<OperationResult>;
   deleteSkill: (name: string, source: string) => Promise<OperationResult>;
   openSkillFolder: (folderPath: string) => Promise<OperationResult>;
+  openPath: (targetPath: string) => Promise<OperationResult>;
+  showItemInFolder: (targetPath: string) => Promise<OperationResult>;
+  openConfigFolder: () => Promise<OperationResult>;
+  openAgentFile: (filename: string, isEnabled: boolean) => Promise<OperationResult>;
   onConfigUpdated: (callback: (data: unknown) => void) => () => void;
   onExternalChange: (callback: (file: string) => void) => () => void;
   onError: (callback: (error: string) => void) => () => void;

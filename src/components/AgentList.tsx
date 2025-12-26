@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Bot, RefreshCw, AlertCircle, ChevronDown, Power, PowerOff, Search, Pencil, Trash2 } from "lucide-react";
+import { Bot, RefreshCw, AlertCircle, ChevronDown, Power, PowerOff, Search, Pencil, Trash2, FolderOpen } from "lucide-react";
 import { Switch } from "./ui/switch";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -27,6 +27,7 @@ interface AgentListProps {
   onRefresh: () => void;
   onReadContent?: (filename: string, isEnabled: boolean) => Promise<{ success: boolean; content?: string; error?: string }>;
   onWriteContent?: (filename: string, content: string, isEnabled: boolean) => Promise<{ success: boolean; error?: string }>;
+  onOpenFolder?: (filename: string, isEnabled: boolean) => void;
 }
 
 const AVAILABLE_MODELS = [
@@ -45,6 +46,7 @@ export function AgentList({
   onRefresh,
   onReadContent,
   onWriteContent,
+  onOpenFolder,
 }: AgentListProps) {
   const [toggling, setToggling] = useState<string | null>(null);
   const [togglingAll, setTogglingAll] = useState(false);
@@ -265,6 +267,19 @@ export function AgentList({
                     title="Edit"
                   >
                     <Pencil className="w-4 h-4" />
+                  </Button>
+                )}
+
+                {/* Open folder button */}
+                {onOpenFolder && (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => onOpenFolder(agent.filename, agent.enabled)}
+                    className="h-8 w-8 text-zinc-400 hover:text-zinc-200"
+                    title="Open in Finder"
+                  >
+                    <FolderOpen className="w-4 h-4" />
                   </Button>
                 )}
 

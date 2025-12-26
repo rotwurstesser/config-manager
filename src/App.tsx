@@ -443,6 +443,16 @@ function App() {
     window.electronAPI.openSkillFolder(folderPath);
   };
 
+  const handleOpenConfigFolder = () => {
+    if (!isElectron) return;
+    window.electronAPI.openConfigFolder();
+  };
+
+  const handleOpenAgentFolder = (filename: string, isEnabled: boolean) => {
+    if (!isElectron) return;
+    window.electronAPI.openAgentFile(filename, isEnabled);
+  };
+
   // Load agents when switching to agents tab
   useEffect(() => {
     if (activeTab === 'agents' && agents.length === 0) {
@@ -540,6 +550,7 @@ function App() {
             onRefresh={loadConfig}
             onReadConfig={() => window.electronAPI.readMcpConfig()}
             onWriteConfig={(type, content) => window.electronAPI.writeMcpConfig(type, content)}
+            onOpenConfigFolder={handleOpenConfigFolder}
           />
         )}
 
@@ -554,6 +565,7 @@ function App() {
             onRefresh={loadAgents}
             onReadContent={(filename, isEnabled) => window.electronAPI.readAgentContent(filename, isEnabled)}
             onWriteContent={(filename, content, isEnabled) => window.electronAPI.writeAgentContent(filename, content, isEnabled)}
+            onOpenFolder={handleOpenAgentFolder}
           />
         )}
 
