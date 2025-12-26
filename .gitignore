@@ -1,10 +1,40 @@
-node_modules
-dist
-dist-electron
-dist-renderer
-release
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-electron/
+dist-renderer/
+release/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Environment variables
 .env
 .env.local
 .env.*.local
+
+# Logs
 *.log
+npm-debug.log*
+
+# Editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude Code local settings (keep .claude/CLAUDE.md for project docs)
+.claude/settings.local.json
+
+# AI session artifacts (generated during development)
+IMPLEMENTATION_PLAN.md
+SESSION_SUMMARY.md
+*_PLAN.md
+*_SUMMARY.md
+
+# Temporary files
+*.tmp
+*.bak
